@@ -10,6 +10,7 @@ import Sales from './components/Sales/Sales';
 import SalesReturn from './components/Sales/SalesReturn';
 import Taxes from './components/Taxes/Taxes';
 import Reports from './components/Reports/Reports';
+import AddMedicine from './components/MedicineDetails/AddMedicine';
 
 
 const App = () => {
@@ -36,6 +37,11 @@ const App = () => {
         <Route path="/edit-medicine/:id" element={
             <Layout username={user} onLogout={handleLogout}>
                 <EditMedicine />
+            </Layout>
+        } />
+        <Route path="/add-medicine" element={
+            <Layout username={user} onLogout={handleLogout}>
+                <AddMedicine />
             </Layout>
         } />
         <Route path="/stock-entry" element={
