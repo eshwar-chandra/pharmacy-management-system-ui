@@ -4,6 +4,12 @@ import Login from './components/Login/Login';
 import Layout from './components/Layout/Layout';
 import MedicineDetails from './components/MedicineDetails/MedicineDetails';
 import EditMedicine from './components/MedicineDetails/EditMedicine';
+import StockEntry from './components/Stocks/StockEntry';
+import StockReturns from './components/Stocks/StockReturns';
+import Sales from './components/Sales/Sales';
+import SalesReturn from './components/Sales/SalesReturn';
+import Taxes from './components/Taxes/Taxes';
+import Reports from './components/Reports/Reports';
 
 
 const App = () => {
@@ -31,7 +37,37 @@ const App = () => {
             <Layout username={user} onLogout={handleLogout}>
                 <EditMedicine />
             </Layout>
+        } />
+        <Route path="/stock-entry" element={
+            <Layout username={user} onLogout={handleLogout}>
+                <StockEntry />
+            </Layout>
+        } />
+        <Route path="/stock-returns" element={
+            <Layout username={user} onLogout={handleLogout}>
+                <StockReturns />
+            </Layout>
+        } />
+        <Route path="/sales" element={
+            <Layout username={user} onLogout={handleLogout}>
+                <Sales />
+            </Layout>
+        } />
+        <Route path="/sales-return" element={
+            <Layout username={user} onLogout={handleLogout}>
+                <SalesReturn />
+            </Layout>
         } />        
+        <Route path="/taxes" element={
+            <Layout username={user} onLogout={handleLogout}>
+                <Taxes />
+            </Layout>
+        } />
+        <Route path="/reports" element={
+            <Layout username={user} onLogout={handleLogout}>
+                <Reports />
+            </Layout>
+        } />                 
       </Routes>
     </Router>
   );
