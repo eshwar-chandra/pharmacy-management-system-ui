@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
+import { Link } from 'react-router-dom';
 
 const MedicineDetails = () => {
-    // Dummy data for the medicine list
-    const [isDialogOpen, setDialogOpen] = useState(false);
-    const [selectedMedicine, setSelectedMedicine] = useState(null);
-    const [showEditOption, setShowEditOption] = useState(false);
     const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 20;
+    // const [medicines, setMedicines] = useState([]);
+
+    // useEffect(() => {
+    //     //Api from backend
+    //     fetch(`https://api.com/medicines?page=${currentPage}&limit=${itemsPerPage}`)
+    //         .then(response => response.json())
+    //         .then(data => setMedicines(data.medicines));
+    // }, [currentPage]);
 
     const medicines = [
-        { name: 'Medicine 1', id: 'Type 1' },
-        { name: 'Medicine 2', id: 'Type 2' },
-        // Add more medicines as needed
+        { name: 'Medicine 1', id: '1' },
+        { name: 'Medicine 2', id: '2' },
+        { name: 'Medicine 3', id: '3' },
     ];
-    const handleMedicineClick = (medicine) => {
-        console.log('Medicine clicked:', medicine);
-        setSelectedMedicine(medicine);
-        setShowEditOption(true);
-        setDialogOpen(true); // Open the dialog when a medicine is clicked
 
+    const handleMedicineClick = (medicine) => {
+        navigate(`/edit-medicine/${medicine.id}`);
     };
 
-    const handleEditClick = () => {
-        navigate(`/edit-medicine/${selectedMedicine.id}`);
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
     };
 
     return (
@@ -43,18 +44,10 @@ const MedicineDetails = () => {
             {/* Medicine List */}
             <div className="mb-4">
                 {medicines.map((medicine, index) => (
-                    <div key={index} className="p-1 border rounded mb-2">
-                        <h2 className="text-sm" onClick={() => handleMedicineClick(medicine)}>{medicine.name}</h2>
-                        {showEditOption && selectedMedicine === medicine && (
-                            <button onClick={handleEditClick}>Edit</button>
-                        )}
+                    <div key={index} className="p-1 border rounded mb-2 cursor-pointer" onClick={() => handleMedicineClick(medicine)}>
+                        <h2 className="text-sm">{medicine.name}</h2>
                     </div>
                 ))}
-                {/* Pagination goes here */}
-                <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
-                    <DialogTitle>Edit Medicine</DialogTitle>
-                {/* Dialog content goes here */}
-                </Dialog>
             </div>
 
             {/* Add Medicine */}
