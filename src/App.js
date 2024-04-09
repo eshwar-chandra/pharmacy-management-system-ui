@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/Login/Login';
+import Layout from './components/Layout/Layout';
+import MedicineDetails from './components/MedicineDetails/MedicineDetails';
+import EditMedicine from './components/MedicineDetails/EditMedicine';
 
-function App() {
+
+const App = () => {
+  const [user, setUser] = useState(null);
+
+  const handleLogin = (username) => {
+    setUser(username);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/home" element={<Layout username={user} onLogout={handleLogout} />} />
+        <Route path="/medicine-details" element={
+          <Layout username={user} onLogout={handleLogout}>
+            <MedicineDetails />
+          </Layout>
+        } />
+        <Route path="/edit-medicine/:id" element={
+            <Layout username={user} onLogout={handleLogout}>
+                <EditMedicine />
+            </Layout>
+        } />        
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
